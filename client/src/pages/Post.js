@@ -64,6 +64,23 @@ function Post() {
         });
     };
 
+    const deleteComment = (id) => {
+        if (!window.confirm("Are you sure you want to delete this comment?")) return;
+
+        axios.delete(`http://localhost:3001/comments/${id}`, {
+            headers: { accessToken: localStorage.getItem("accessToken") },
+        })
+        .then(() => {
+            setComments(comments.filter((val) => val.id !== id));
+            alert("Comment deleted successfully!"); // Add this alert
+        })
+        .catch((err) => {
+            console.error("Failed to delete comment:", err);
+            alert("Failed to delete comment");
+        });
+    };
+
+
     return (
         <div className='postPage'>
             <div className='leftSide'>
@@ -90,7 +107,9 @@ function Post() {
                         <div key={key} className='comment'> {comment.commentText}
                             <label> Username: {comment.username}</label>
                             {authState
-                            .username === comment.username && <button>DELETE</button>}
+                            .username === comment.username && (
+                            <button onClick={() => {deleteComment(comment.id)}}>DELETE</button>
+                            )}
                         </div>
                         )
                     })}
