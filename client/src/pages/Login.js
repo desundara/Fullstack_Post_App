@@ -17,7 +17,7 @@ function Login() {
                     alert(response.data.error);
                 } else {
                     // Assuming your backend returns { message: "...", token: "..." }
-                    localStorage.getItem("accessToken");
+                    localStorage.setItem("accessToken", response.data.token);
                     setAuthState({username: response.data.username, id: response.data.id, status: true });
                     //sessionStorage.setItem("username", response.data.username); // Optional: store username
                     alert("Login successful!");

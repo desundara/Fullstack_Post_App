@@ -136,53 +136,74 @@ span {
   color: red;
 }
 
-/* Navbar container */
+/* ===== Navbar Container ===== */
 .navbar {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 30px;
+  background: #f3f9ff;
+  padding: 12px 25px;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Links styling */
+/* ===== Navbar Links ===== */
 .navbar a {
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   color: #0d1b3d;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 6px 14px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #c1e0ff, #66a6ff);
   transition: all 0.3s ease;
+  font-size: 15px;
 }
 
-/* Hover effect */
 .navbar a:hover {
   background: linear-gradient(135deg, #99cfff, #3a7bd5);
   color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 70, 200, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 70, 200, 0.25);
 }
 
+/* ===== Navbar Buttons (Logout etc.) ===== */
 .navbar button {
-  background-color: #007bff; /* bright blue */
+  background: linear-gradient(135deg, #007bff, #4fa9ff);
   color: white;
   border: none;
-  padding: 8px 16px;
-  margin-left: 10px;
-  border-radius: 6px;
+  padding: 6px 14px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 15px;
+  transition: all 0.3s ease;
 }
 
 .navbar button:hover {
-  background-color: #0056b3; /* darker blue */
+  background: linear-gradient(135deg, #005fcc, #3c9cff);
   transform: scale(1.05);
 }
 
 .navbar button:active {
-  background-color: #003d80; /* even darker blue */
-  transform: scale(0.98);
+  transform: scale(0.95);
+}
+
+/* ===== Responsive Navbar ===== */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .navbar a,
+  .navbar button {
+    width: 90%;
+    text-align: center;
+  }
 }
 
 
@@ -337,6 +358,34 @@ span {
   margin-top: 4px;
   font-style: italic;
 }
+
+/* Delete button inside each comment (small, matching style) */
+.comment button {
+  padding: 6px 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff5f6d, #d7263d); /* red gradient for delete */
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(215, 38, 61, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s;
+}
+
+/* hover / active */
+.comment button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(215, 38, 61, 0.35);
+  opacity: 0.95;
+}
+
+.comment button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(215, 38, 61, 0.2);
+}
+
 
 /* Login.css */
 

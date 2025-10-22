@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
         }
         
         // Hash password and create user
-        const hash = await bcrypt.hash(password, 10);
+        const hash = await bcrypt.hash(password, 5);
         await Users.create({
             username: username,
             password: hash,
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
         const user = await Users.findOne({ where: { username } });
 
         if (!user) {
-            return res.status(404).json({ error: "User doesn't exist" }); // ✅ return added
+            return res.status(404).json({ error: "User doesn't exist" }); // return added
         }
 
         // Compare password

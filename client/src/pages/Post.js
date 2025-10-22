@@ -42,7 +42,7 @@ function Post() {
         axios.post(`http://localhost:3001/comments`, {
         commentText: newComment,
         postId: id,
-        username: authState.username  // <-- logged-in user
+        //username: authState.username  // <-- logged-in user
     },
         {
             headers: {
@@ -89,8 +89,8 @@ function Post() {
                         return (
                         <div key={key} className='comment'> {comment.commentText}
                             <label> Username: {comment.username}</label>
-                            {/* {authState
-                            .username === comment.username && <button>DELETE</button>} */}
+                            {authState
+                            .username === comment.username && <button>DELETE</button>}
                         </div>
                         )
                     })}
