@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../helpers/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 function Post() {
     const { id } = useParams(); 
@@ -9,6 +10,7 @@ function Post() {
     const [comments, setComments] = useState([])
     const [newComment, setNewComment] = useState("")
     const { authState } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`http://localhost:3001/posts/byId/${id}`).
@@ -80,6 +82,14 @@ function Post() {
         });
     };
 
+    const deletePost = (id) => {
+        axios.delete(`http://localhost:3001/posts/${id}`, {
+            headers: { accessToken: localStorage.getItem("accessToken") }})
+            .then(() => {
+            alert("Delete success")
+            navigate("/");
+        })
+    }
 
     return (
         <div className='postPage'>
@@ -87,7 +97,17 @@ function Post() {
                     <div className='post' id='individual'>
                         <div className='title'> {postObject.title}</div>
                         <div className='postText'> {postObject.postText}</div>
-                        <div className='footer'> {postObject.username}</div>
+                        <div className='footer'> 
+                            {postObject.username}{""}
+                            {authState.username === postObject.username && (
+                                <button 
+                                    onClick={() => {
+                                        deletePost(postObject.id)                                    
+                                        }}> 
+                                        {""}
+                                        Delete Post</button>
+                            )}
+                            </div>
                     </div>
                 </div>
             <div className='rightSide'>

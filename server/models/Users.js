@@ -1,4 +1,4 @@
-const Posts = require("./Posts");
+//const Posts = require("./Posts");
 
 module.exports = (sequelize, DataTypes) => {
     const Users = sequelize.define("Users", {
@@ -12,11 +12,15 @@ module.exports = (sequelize, DataTypes) => {
         },
     });
 
-    // Users.associate = (models) => {
-    //     Users.hasMany(models.Posts, {
-    //         onDelete: "cascade",
-    //     });
-    // };
+    Users.associate = (models) => {
+        Users.hasMany(models.Likes, {
+            onDelete: "cascade",
+        });
+
+        Users.hasMany(models.Posts, {
+            onDelete: "cascade",
+        });
+    };
     
     return Users;
 };

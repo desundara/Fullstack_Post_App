@@ -44,7 +44,9 @@ router.delete("/:commentId", validateToken, async (req, res) => {
 
     try {
         await Comments.destroy({
-            where: { id: Number(commentId) },
+            where: { 
+                id: Number(commentId) 
+            },
         });
         res.json({ message: "Comment deleted successfully" });
     } catch (err) {
