@@ -74,7 +74,14 @@ function Home() {
                         <div className="title"> {value.title} </div>
                         <div className="body"> {value.postText} </div>
                         <div className="footer"> 
-                            <Link to={`/profile/${value.UserId}`}>{value.username}</Link>
+                            <Link 
+                                to={`/profile/${value.UserId}`}
+                                onClick={(event) => {
+                                    event.stopPropagation(); // Prevent post click
+                                }}
+                            >
+                                {value.username}
+                            </Link>
                             <button 
                                 onClick={(event) => {
                                     event.stopPropagation();

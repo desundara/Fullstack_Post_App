@@ -34,7 +34,7 @@ router.get('/byUserId/:userId', async (req, res) => {
     try {
         const posts = await Posts.findAll({ 
             where: { UserId: userId },
-            include: [Likes]
+            include: [Likes] 
         });
         res.json(posts);
     } catch (err) {
@@ -43,12 +43,55 @@ router.get('/byUserId/:userId', async (req, res) => {
     }
 });
 
+router.post("/title", validateToken, async (req, res) => {
+    try {
+        const { newTitle, id } = req.body;
+        
+        if (!newTitle || !id) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+        
+        await Posts.update(
+            { title: newTitle }, 
+            { where: { id: id } }
+        );
+        res.json({ title: newTitle }); 
+    } catch (error) {
+        console.error("Error updating title:", error);
+        res.status(500).json({ error: "Failed to update title" });
+    }
+});
+
+router.post("/postText", validateToken, async (req, res) => {
+    try {
+        const { newText, id } = req.body;
+        if (!newText || !id) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+        
+        await Posts.update(
+            { postText: newText }, 
+            { where: { id: id } }
+        );
+        res.json({ postText: newText });
+    } catch (error) {
+        console.error("Error updating post text:", error);
+        res.status(500).json({ error: "Failed to update post text" });
+    }
+});
+
 router.post("/", validateToken, async (req, res) => {
-    const post = req.body
-    post.username = req.user.username;
-    post.UserId = req.user.id;
-    await Posts.create(post);
-    res.json(post); 
+    try {
+        const post = req.body;
+        post.username = req.user.username;
+        post.UserId = req.user.id;
+        
+        const createdPost = await Posts.create(post);
+        res.json(createdPost); 
+    } catch (error) {
+        console.error("Error creating post:", error);
+        res.status(500).json({ error: "Failed to create post" });
+    }
 });
 
 router.delete("/:postId", validateToken, async (req, res) => {

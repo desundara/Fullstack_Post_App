@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../helpers/AuthContext';
-import { useNavigate } from "react-router-dom";
 
 function Post() {
     const { id } = useParams(); 
@@ -66,14 +65,14 @@ function Post() {
         });
     };
 
-    const deleteComment = (id) => {
+    const deleteComment = (commentId) => {
         if (!window.confirm("Are you sure you want to delete this comment?")) return;
 
-        axios.delete(`http://localhost:3001/comments/${id}`, {
+        axios.delete(`http://localhost:3001/comments/${commentId}`, {
             headers: { accessToken: localStorage.getItem("accessToken") },
         })
         .then(() => {
-            setComments(comments.filter((val) => val.id !== id));
+            setComments(comments.filter((val) => val.id !== commentId));
             alert("Comment deleted successfully!"); // Add this alert
         })
         .catch((err) => {
@@ -82,21 +81,91 @@ function Post() {
         });
     };
 
-    const deletePost = (id) => {
-        axios.delete(`http://localhost:3001/posts/${id}`, {
-            headers: { accessToken: localStorage.getItem("accessToken") }})
-            .then(() => {
-            alert("Delete success")
+    const deletePost = (postId) => {
+        if (!window.confirm("Are you sure you want to delete this post?")) return;
+
+        axios.delete(`http://localhost:3001/posts/${postId}`, {
+            headers: { accessToken: localStorage.getItem("accessToken") }
+        })
+        .then(() => {
+            alert("Post deleted successfully!");
             navigate("/");
         })
-    }
+        .catch((err) => {
+            console.error("Failed to delete post:", err);
+            alert("Failed to delete post");
+        });
+    };
+
+    const editPost = (option) => {
+        if (option === "title") {
+            let newTitle = prompt("Enter New Title:");
+            if (!newTitle || !newTitle.trim()) return;
+
+            axios.post(
+                `http://localhost:3001/posts/title`, 
+                {
+                    newTitle: newTitle, 
+                    id: id,
+                },
+                {
+                    headers: { accessToken: localStorage.getItem("accessToken") },
+                }
+            )
+            .then((response) => {
+                setPostObject({ ...postObject, title: newTitle });
+                alert("Title updated successfully!");
+            })
+            .catch((err) => {
+                console.error("Failed to update title:", err);
+                alert("Failed to update title");
+            });
+        } else {
+            let newPostText = prompt("Enter New Text:");
+            if (!newPostText || !newPostText.trim()) return;
+
+            axios.post(
+                `http://localhost:3001/posts/postText`, 
+                {
+                    newText: newPostText, 
+                    id: id,
+                },
+                {
+                    headers: { accessToken: localStorage.getItem("accessToken") },
+                }
+            )
+            .then((response) => {
+                setPostObject({ ...postObject, postText: newPostText });
+                alert("Post text updated successfully!");
+            })
+            .catch((err) => {
+                console.error("Failed to update post text:", err);
+                alert("Failed to update post text");
+            });
+        }
+    };
 
     return (
         <div className='postPage'>
             <div className='leftSide'>
                     <div className='post' id='individual'>
-                        <div className='title'> {postObject.title}</div>
-                        <div className='postText'> {postObject.postText}</div>
+                        <div 
+                            className='title' 
+                            onClick={() => {
+                                if (authState.username === postObject.username) {
+                                    editPost("title")
+                                }
+                                }}> 
+                                    {postObject.title}
+                                </div>
+                        <div className='postText' 
+                            onClick={() => {
+                                if (authState.username === postObject.username) {
+                                editPost("postText")
+                                }
+                            }}> 
+                                    {postObject.postText}
+                                    </div>
                         <div className='footer'> 
                             {postObject.username}{""}
                             {authState.username === postObject.username && (

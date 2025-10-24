@@ -29,8 +29,8 @@ function CreatePost() {
                 headers: {accessToken: localStorage.getItem("accessToken") },
             })
             .then((response) => {
-            navigate("/");
-            resetForm();
+                resetForm();
+                navigate("/");
         })
         .catch((error) => {
             console.error("Error creating post:", error);
