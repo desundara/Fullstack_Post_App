@@ -5,10 +5,15 @@ import { AuthContext } from "../helpers/AuthContext";
 const ProtectedRoute = ({ children }) => {
     const { authState } = useContext(AuthContext);
 
-    // loading eka check karanna epa nam first render eken redirect wenawa
-    if (authState.loading) return null; // or loader component
+    // ✅ loading period blank return
+    if (authState.loading) return null;
 
-    return authState.status ? children : <Navigate to="/login" />;
+    // ✅ If unauthenticated redirect login page
+    if (!authState.status) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return children;
 };
 
 export default ProtectedRoute;

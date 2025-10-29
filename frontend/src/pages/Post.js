@@ -12,16 +12,16 @@ function Post() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/posts/byId/${id}`).
-        then((response) => {
+        axios.get(`http://localhost:3001/posts/byId/${id}`)
+        .then((response) => {
             setPostObject(response.data);
             })
             .catch((error) => {
                 console.error("Error fetching post:", error);
             });
 
-        axios.get(`http://localhost:3001/comments/${id}`).
-        then((response) => {
+        axios.get(`http://localhost:3001/comments/${id}`)
+        .then((response) => {
             setComments(response.data);
             })
             .catch((error) => {

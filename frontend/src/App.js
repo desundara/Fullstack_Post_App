@@ -11,7 +11,7 @@ import ChangePassword from './pages/ChangePassword';
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import { AuthContext } from './helpers/AuthContext';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
@@ -34,6 +34,14 @@ function App() {
   } else {
     setAuthState({ status: false, loading: false });
   }
+
+  // 👇 handles token changes across tabs
+  window.addEventListener("storage", () => {
+    const tokenCheck = localStorage.getItem("accessToken");
+    if (!tokenCheck) {
+      setAuthState({ username: "", id: 0, status: false, loading: false });
+    }
+  });
 }, []);
 
   const logout = () => {
@@ -66,10 +74,10 @@ function App() {
             <Route path="/createpost" element={<ProtectedRoute><CreatePost /></ProtectedRoute>} />
             <Route path="/post/:id" element={<ProtectedRoute><Post /></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/registration" element={<ProtectedRoute><Registration /></ProtectedRoute>} />
+            <Route path="/registration" element={<Registration />} />
             <Route path="/profile/:id" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/changepassword" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
-            <Route path='*' exact element={<ProtectedRoute><PageNotFound /></ProtectedRoute>}/>
+            <Route path='*' exact element={<PageNotFound />} />
         
           </Routes>
         </Router>
