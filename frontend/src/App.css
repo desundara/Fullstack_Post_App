@@ -1,0 +1,703 @@
+/* Global body */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #e0f0ff; /* soft light blue */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+/* Post cards */
+.post {
+  width: 400px;
+  background: linear-gradient(145deg, #c1e0ff, #66a6ff);
+  margin: 15px 0;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 70, 200, 0.2);
+  color: #0d1b3d;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.post:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 70, 200, 0.3);
+  background: linear-gradient(145deg, #99cfff, #3a7bd5);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.body {
+  font-size: 16px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.footer {
+  text-align: right;
+  font-size: 14px;
+  font-style: italic;
+  color: #0d1b3dcc;
+}
+
+/* Create Post Page */
+.createPostPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  background: linear-gradient(145deg, #c1e0ff, #66a6ff);
+  padding: 20px;
+  border-radius: 35px;
+  font-family: 'Poppins', sans-serif;
+  animation: backgroundShift 12s ease infinite alternate;
+}
+
+/* Animate gradient background */
+@keyframes backgroundShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Form */
+.createPostPage form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  background: #ffffffdd; /* semi-transparent white */
+  padding: 30px;
+  border-radius: 35px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 100, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* Labels */
+.createPostPage label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #1a3f7c;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs */
+#createPost input,
+#createPost textarea,
+.createPostPage input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #a0c4ff;
+  font-size: 14px;
+  margin-bottom: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#createPost input:focus,
+#createPost textarea:focus,
+#createPostField:focus {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 8px rgba(58, 123, 213, 0.5);
+  outline: none;
+}
+
+/* Button */
+.createPostPage button {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+.createPostPage button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 15px rgba(42, 82, 152, 0.6);
+  background: linear-gradient(135deg, #3a7bd5, #1e3c72);
+}
+
+span {
+  color: red;
+}
+
+/* ===== Navbar Container ===== */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+  background: #f3f9ff;
+  padding: 12px 25px;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ===== Navbar Links ===== */
+.navbar a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #0d1b3d;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #c1e0ff, #66a6ff);
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+.navbar a:hover {
+  background: linear-gradient(135deg, #99cfff, #3a7bd5);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 70, 200, 0.25);
+}
+
+/* ===== Navbar Buttons (Logout etc.) ===== */
+.navbar button {
+  background: linear-gradient(135deg, #007bff, #4fa9ff);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.navbar button:hover {
+  background: linear-gradient(135deg, #005fcc, #3c9cff);
+  transform: scale(1.05);
+}
+
+.navbar button:active {
+  transform: scale(0.95);
+}
+
+/* ===== Responsive Navbar ===== */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .navbar a,
+  .navbar button {
+    width: 90%;
+    text-align: center;
+  }
+}
+
+
+/* Post Page Layout */
+.postPage {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 30px;
+  min-height: 90vh;
+  background: #e0f0ff; /* soft light blue background */
+}
+
+/* Left side (posts) */
+.leftSide {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Individual post */
+.post#individual {
+  background: linear-gradient(145deg, #c1e0ff, #66a6ff);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 70, 200, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #0d1b3d;
+}
+
+.post#individual:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 70, 200, 0.3);
+}
+
+/* Post title */
+.post .title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* Post text */
+.post .postText {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+/* Footer (username) */
+.post .footer {
+  font-size: 14px;
+  text-align: right;
+  font-style: italic;
+  color: #0d1b3dcc;
+  cursor: pointer;
+}
+
+.post .deletePostBtn {
+  background: linear-gradient(135deg, #ff5f6d, #d7263d);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post .deletePostBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(116, 4, 19, 0.3);
+  background: linear-gradient(135deg, #ff7f91, #e63946); /* slightly lighter red on hover */
+}
+
+/* ===== Like Button Styling ===== */
+.footer button {
+  margin-left: 10px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* deep blue gradient */
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
+}
+
+/* Hover and Active Effects */
+.footer button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #3a7bd5, #1e3c72);
+  box-shadow: 0 6px 15px rgba(58, 123, 213, 0.4);
+}
+
+/* Optional: Highlight Liked State */
+.footer button.liked {
+  background: linear-gradient(135deg, #ff6a00, #ee0979); /* orange-pink gradient for liked */
+  box-shadow: 0 6px 15px rgba(238, 9, 121, 0.4);
+}
+/* Like count label next to Like button */
+.footer label {
+  margin-left: 8px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #c1e0ff, #66a6ff); /* matching soft blue */
+  color: #0d1b3d; /* dark text for contrast */
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-block;
+  transition: background 0.3s, transform 0.2s;
+}
+
+/* Hover effect if you want it to react like button */
+.footer label:hover {
+  background: linear-gradient(135deg, #99cfff, #3a7bd5);
+  transform: translateY(-1px);
+}
+
+/* Right side (comments) */
+.rightSide {
+  flex: 1;
+  background: #ffffffcc;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* === Add Comment Input Section === */
+.addCommentContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.addCommentContainer input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #a0c4ff;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #f7fbff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.addCommentContainer input:focus {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 8px rgba(58, 123, 213, 0.4);
+  outline: none;
+}
+
+.addCommentContainer button {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+}
+
+.addCommentContainer button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #3a7bd5, #1e3c72);
+  box-shadow: 0px 6px 12px rgba(42, 82, 152, 0.4);
+}
+
+/* === Comment List Section === */
+.listOfComments {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 300px;
+  padding-right: 5px;
+}
+
+.listOfComments::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listOfComments::-webkit-scrollbar-thumb {
+  background: #a0c4ff;
+  border-radius: 10px;
+}
+
+.comment {
+  background: linear-gradient(145deg, #d8ebff, #a6c8ff);
+  padding: 12px 15px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 70, 200, 0.15);
+  color: #0d1b3d;
+  font-size: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 70, 200, 0.25);
+}
+
+/* Optional username under comment */
+.commentUser {
+  display: block;
+  text-align: right;
+  font-size: 12px;
+  color: #1a3f7c;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Delete button inside each comment (small, matching style) */
+.comment button {
+  padding: 6px 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff5f6d, #d7263d); /* red gradient for delete */
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(215, 38, 61, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s;
+}
+
+/* hover / active */
+.comment button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(215, 38, 61, 0.35);
+  opacity: 0.95;
+}
+
+.comment button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(215, 38, 61, 0.2);
+}
+
+/* Login.css */
+
+.loginPage form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  background: linear-gradient(145deg, #c1e0ff, #66a6ff);
+  padding: 20px;
+  border-radius: 35px;
+  font-family: 'Poppins', sans-serif;
+  animation: backgroundShift 12s ease infinite alternate;
+}
+
+.comment label {
+    display: block;          /* makes it appear on its own line */
+    font-size: 12px;         /* smaller text */
+    color: #1a3f7c;          /* dark blue color */
+    font-style: italic;      /* italic style */
+    margin-top: 5px;         /* spacing above the label */
+}
+
+/* Labels */
+.loginPag form label {
+  font-weight: 600;
+  color: #1a3f7c;
+  margin-top: 10px;
+}
+/* Input fields */
+.loginPage form input {
+  width: 300px;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #a0c4ff;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.loginPage form input:focus {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 8px rgba(58, 123, 213, 0.5);
+  outline: none;
+}
+
+/* Login Button */
+.loginPage form button {
+  width: 320px;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+.loginPage form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 15px rgba(42, 82, 152, 0.6);
+  background: linear-gradient(135deg, #3a7bd5, #1e3c72);
+}
+
+/* Registration Page */
+.registrationPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  border-radius: 35px;
+  background: linear-gradient(145deg, #c1e0ff, #66a6ff);
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  animation: backgroundShift 12s ease infinite alternate;
+}
+
+@keyframes backgroundShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Form Fields */
+/* Registration Input Fields */
+.registrationPage .inputField {
+  width: 300px;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #a0c4ff;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.registrationPage .inputField:focus {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 8px rgba(58, 123, 213, 0.5);
+  outline: none;
+}
+
+/* Labels */
+.registrationPage label {
+  font-weight: 600;
+  color: #1a3f7c;
+  margin-top: 10px;
+}
+
+/* Error messages */
+.registrationPage span {
+  color: red;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+/* Button */
+.registrationPage button {
+  width: 320px;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+.registrationPage button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 15px rgba(42, 82, 152, 0.6);
+  background: linear-gradient(135deg, #3a7bd5, #1e3c72);
+}
+
+/* Change Password Page */
+.changePasswordContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f4f9ff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Card */
+.changePasswordBox {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Heading */
+.changePasswordBox h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* Input Fields */
+.changePasswordBox input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.changePasswordBox input:focus {
+  border-color: #4facfe;
+  box-shadow: 0 0 6px rgba(79, 172, 254, 0.3);
+}
+
+/* Save Button */
+.changePasswordBox button {
+  width: 100%;
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.changePasswordBox button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #4facfe, #007bff);
+}
+/* Change My Password Button */
+.profilePageContainer button {
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.profilePageContainer button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #4facfe, #007bff);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .postPage {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leftSide,
+  .rightSide {
+    width: 90%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .createPostPage form,
+  .post {
+    width: 90%;
+    padding: 20px;
+  }
+}
