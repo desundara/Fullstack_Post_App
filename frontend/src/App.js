@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
   const token = localStorage.getItem("accessToken");
   if (token) {
-    axios.get("http://localhost:3001/auth/auth", { headers: { accessToken: token } })
+    axios.get(`${process.env.REACT_APP_API_URL}/auth/auth`, { headers: { accessToken: token } })
       .then(res => {
         if (!res.data.error) setAuthState({ username: res.data.username, id: res.data.id, status: true, loading: false });
         else setAuthState({ status: false, loading: false });
