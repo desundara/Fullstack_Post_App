@@ -12,7 +12,7 @@ function Post() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/posts/byId/${id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/posts/byId/${id}`)
         .then((response) => {
             setPostObject(response.data);
             })
@@ -20,7 +20,7 @@ function Post() {
                 console.error("Error fetching post:", error);
             });
 
-        axios.get(`http://localhost:3001/comments/${id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
         .then((response) => {
             setComments(response.data);
             })
@@ -40,7 +40,7 @@ function Post() {
             return;
         }
 
-        axios.post(`http://localhost:3001/comments`, {
+        axios.post(`${process.env.REACT_APP_API_URL}/comments`, {
         commentText: newComment,
         postId: id,
         //username: authState.username  // <-- logged-in user
@@ -68,7 +68,7 @@ function Post() {
     const deleteComment = (commentId) => {
         if (!window.confirm("Are you sure you want to delete this comment?")) return;
 
-        axios.delete(`http://localhost:3001/comments/${commentId}`, {
+        axios.delete(`${process.env.REACT_APP_API_URL}/comments/${commentId}`, {
             headers: { accessToken: localStorage.getItem("accessToken") },
         })
         .then(() => {
@@ -84,7 +84,7 @@ function Post() {
     const deletePost = (postId) => {
         if (!window.confirm("Are you sure you want to delete this post?")) return;
 
-        axios.delete(`http://localhost:3001/posts/${postId}`, {
+        axios.delete(`${process.env.REACT_APP_API_URL}/posts/${postId}`, {
             headers: { accessToken: localStorage.getItem("accessToken") }
         })
         .then(() => {
@@ -103,7 +103,7 @@ function Post() {
             if (!newTitle || !newTitle.trim()) return;
 
             axios.post(
-                `http://localhost:3001/posts/title`, 
+                `${process.env.REACT_APP_API_URL}/posts/title`, 
                 {
                     newTitle: newTitle, 
                     id: id,
@@ -125,7 +125,7 @@ function Post() {
             if (!newPostText || !newPostText.trim()) return;
 
             axios.post(
-                `http://localhost:3001/posts/postText`, 
+                `${process.env.REACT_APP_API_URL}/posts/postText`, 
                 {
                     newText: newPostText, 
                     id: id,
