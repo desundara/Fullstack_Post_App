@@ -6,46 +6,52 @@ import { AuthContext } from '../helpers/AuthContext';
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {setAuthState} = useContext(AuthContext);
+    const { setAuthState } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const login = (e) => {
         e.preventDefault(); // prevent page refresh
-        const data = { username: username, password: password };
-        axios.post("http://localhost:3001/auth/login", data)
+        const data = { username, password };
+
+        // ✅ Use environment variable for backend URL
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, data)
             .then((response) => {
                 if (response.data.error) {
                     alert(response.data.error);
                 } else {
-                    // Assuming your backend returns { message: "...", token: "..." }
+                    // Save JWT token in localStorage
                     localStorage.setItem("accessToken", response.data.token);
-                    setAuthState({username: response.data.username, id: response.data.id, status: true });
-                    //sessionStorage.setItem("username", response.data.username); // Optional: store username
+                    setAuthState({
+                        username: response.data.username,
+                        id: response.data.id,
+                        status: true
+                    });
                     alert("Login successful!");
-                    navigate("/"); //Navigate to homepage after login
+                    navigate("/"); // Navigate to homepage after login
                 }
-                })
+            })
             .catch((err) => {
-                console.error(err);
+                console.error("Login error:", err);
                 alert("Login failed. Please try again.");
             });
     };
+
     return (
         <div className="loginPage">
             <form onSubmit={login}>
                 <label>Username: </label>
-                <input type='text'
-                placeholder="Username"
-                onChange={(event) => {
-                    setUsername(event.target.value);
-                }}
+                <input
+                    type='text'
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <label>Password: </label>
-                <input type='password' 
-                placeholder="Password"
-                onChange={(event) => {
-                    setPassword(event.target.value);
-                }}
+                <input
+                    type='password'
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit">Login</button>
             </form>
@@ -53,4 +59,4 @@ function Login() {
     );
 }
 
-export default Login
+export default Login;
